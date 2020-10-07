@@ -1,5 +1,5 @@
-    <div class="d-flex flex-wrap">
-        <div class="m-2" *ngFor="let employee of employees; let i = index">
+    <div class="d-flex flex-wrap pt-4 justify-content-center">
+        <div class="m-3" *ngFor="let employee of employees; let i = index">
             <app-employee-display [employee]="employee" [index]="i"></app-employee-display>
         </div>
     </div>

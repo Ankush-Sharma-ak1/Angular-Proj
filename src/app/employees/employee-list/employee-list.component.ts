@@ -7,25 +7,18 @@ import { EmployeeService } from '../employee.service';
   templateUrl: './employee-list.component.html',
   styleUrls: ['./employee-list.component.css']
 })
-export class EmployeeListComponent implements OnInit, OnDestroy {
+export class EmployeeListComponent implements OnInit {
 
   employees: Employee[];
   subscription : Subscription;
 
   constructor(private empService: EmployeeService) { 
-    this.employees = this.empService.getEmployees();
+    
   }
 
   ngOnInit(): void {
-    this.subscription = this.empService.employeesChanged.subscribe(
-      (emp : Employee[]) => {
-        this.employees = emp;
-      }
-    );
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.employees = this.empService.getEmployees();
+    console.log('list....' + this.employees);
   }
 
 }

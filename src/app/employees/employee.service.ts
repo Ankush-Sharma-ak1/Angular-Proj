@@ -1,66 +1,47 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Employee } from '../models/employee.model';
+import { DataService } from '../shared/data-service';
 
 @Injectable()
 export class EmployeeService {
-
-        employeesChanged = new Subject<Employee[]>();
+  
         startEdit = new BehaviorSubject<number> (null);
 
-        private listEmployees: Employee[] = [
-            {
-              name: 'Sahil',
-              email: 'sahil.sh@catalystone.com',
-              module: 'LMS',
-              teamName:'UX-Wizards',
-              project: 'Web project',
-              projectLink: 'https://www.w3schools.com',
-              photoPath: 'assets/images/male-icon.jpg',
-            },
-            {
-              name: 'Deeksha',
-              email: 'deeksha.sh@catalystone.com',
-              module: 'LMS',
-              teamName:'UX-Wizards',
-              project: 'Web project',
-              projectLink: 'https://www.w3schools.com',
-              photoPath: 'assets/images/female.png',
-            },
-            {
-              name: 'Karan',
-              email: 'karan.sh@catalystone.com',
-              module: 'Application Design',
-              teamName:'CRUX',
-              project: 'Web project',
-              projectLink: 'https://www.w3schools.com',
-              photoPath: 'assets/images/male.png',
-            },
-        
-          ];
+        private listEmployees: Employee[];
 
-          getEmployees() : Employee[] {
-              return this.listEmployees;
+          constructor(private dataService: DataService) {}
+
+          getEmployees(): Employee[] {
+            this.listEmployees = [];
+            let count = 0;
+            this.dataService.getUsersFromFirebase().snapshotChanges().forEach(userSnapShot => {
+                if(count == 0) {
+                  userSnapShot.forEach(employeeSnapShot => {
+                        let employee = employeeSnapShot.payload.toJSON();
+                        employee['$key'] = employeeSnapShot.key;
+                        this.listEmployees.push(employee as Employee);
+                  })
+                  count++;
+                }
+            }); 
+            return this.listEmployees;
           }
 
           createEmployee(employee: Employee) {
-            this.listEmployees.push(employee);
-            this.employeesChanged.next(this.listEmployees.slice());
-          
-        }
+            this.dataService.saveEmployeeToFirebase(employee);
+          }
 
           getEmployee(empId: number): Employee{
             return this.listEmployees[empId];
           }
           
-          updateEmployee(index: number, employee: Employee) {
-            this.listEmployees[index] = employee;
-            this.employeesChanged.next(this.listEmployees.slice());
+          updateEmployee(employee: Employee) {
+            this.dataService.updateEmployee(employee);
           }
 
-          deleteEmployee(index) {
-            this.listEmployees.splice(index,1);
-            this.employeesChanged.next(this.listEmployees.slice());
+          deleteEmployee(employee: Employee) {
+           this.dataService.deleteEmployee(employee.$key);
           }
 
 

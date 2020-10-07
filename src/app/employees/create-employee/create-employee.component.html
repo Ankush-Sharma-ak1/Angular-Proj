@@ -1,7 +1,14 @@
+<div class="alert m-2 alert-info" role="alert">
+    Only Admin will have the right to create or update the information. We are currently working on this.
+  </div>
+
 <form #empForm (ngSubmit)="onSave()">
-<div class="card">
+<div class="card m-2">
     <div class="card-header">
         <h4> {{editMode ? 'Edit': 'Create'}} Employee </h4>
+        <button type="button" class="close" aria-label="Close" routerLink="{{editMode ? '/list': '/home'}}">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="card-body">
         <div class="form-group">
@@ -26,7 +33,7 @@
         </div>
         <div class="form-group">
             <label for="projectLink">Project Link: </label>
-            <input type="text" id="projectLink" class="form-control" ngModel name="projectLink" [(ngModel)]="employee.projectLink">
+            <input type="text" id="projectLink" class="form-control" [disabled]="editMode" ngModel name="projectLink" [(ngModel)]="employee.projectLink">
         </div>
         <div class="form-group">
             <label for="photoPath">Photo Path: </label>

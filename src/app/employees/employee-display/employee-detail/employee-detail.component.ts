@@ -35,7 +35,7 @@ export class EmployeeDetailComponent implements OnInit{
   }
 
   onDelete() {
-    this.empService.deleteEmployee(this.employeeId);
+    this.empService.deleteEmployee(this.employee);
     this.router.navigate(['list']);
   }
  

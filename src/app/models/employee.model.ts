@@ -1,4 +1,5 @@
 export class Employee {
+    $key?: string;
     name: string;
     email: string;
     module: string;

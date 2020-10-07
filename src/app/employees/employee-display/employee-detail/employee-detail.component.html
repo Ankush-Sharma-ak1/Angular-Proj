@@ -1,4 +1,8 @@
-<div class="card mt-2">
+<div class="alert m-2 alert-info" role="alert">
+    Please do not update or delete any of the content. We are currently working on this.
+  </div>
+
+<div class="card custom-margin-22 detail-card">
     <div class="card-header">
         {{employee.name}}
         <button type="button" class="close" aria-label="Close" routerLink="/list">
@@ -6,7 +10,7 @@
         </button>
     </div>
     <div class="card-body">
-    <div class="row vertical-align">
+    <div class="d-flex align-items-center">
         <div class="col-xs-4">
             <img [src]="employee.photoPath" alt="">
         </div>

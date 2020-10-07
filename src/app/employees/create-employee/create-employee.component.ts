@@ -47,7 +47,7 @@ export class CreateEmployeeComponent implements OnInit, OnDestroy {
   }
   onSave() {
     if(this.editMode)
-      this.empService.updateEmployee(this.employeeId, this.employee);
+      this.empService.updateEmployee(this.employee);
     else
       this.empService.createEmployee(this.employee);
   this.router.navigate(['list']);
