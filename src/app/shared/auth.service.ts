@@ -18,7 +18,7 @@ export class AuthService {
    loginOnFirebase(email: string, password: string) {
         return this.afAuth.auth.signInWithEmailAndPassword(email, password);
    } 
-   
+
    setUserToLocalStorage() {
     this.afAuth.authState.subscribe(user => {
       if (user){
@@ -31,6 +31,7 @@ export class AuthService {
    }
    logout(){
     this.afAuth.auth.signOut();
+   this.adminRight.next(null);
     localStorage.removeItem('user');
 
 }

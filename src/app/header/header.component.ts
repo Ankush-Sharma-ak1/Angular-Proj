@@ -34,7 +34,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-   this.authService.adminRight.next(null);
     this.isAdmin = false;
  }
 
