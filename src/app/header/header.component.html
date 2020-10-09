@@ -5,14 +5,20 @@
                 <div class="collapse navbar-collapse mx-4" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item active" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                            <a class="nav-link" routerLink="/">Home</a> </li>
-                        <li class="nav-item mx-4" routerLinkActive="active"> <a class="nav-link"
-                                routerLink="/list">Employees</a> </li>
-                        <li class="nav-item" routerLinkActive="active"> <a class="nav-link"
-                                routerLink="/form">New Employee</a> </li>
+                            <a class="nav-link btn btn-light btn-text" routerLink="/">Home</a> </li>
+                        <li class="nav-item mx-4" routerLinkActive="active"> <a class="nav-link btn btn-light btn-text"
+                                routerLink="/list">Engineers</a> </li>
+                        <li *ngIf="isAdmin" class="nav-item mr-4" routerLinkActive="active"> <a class="nav-link btn btn-light btn-text"
+                                routerLink="/form">Add details</a> </li>
+                        <li *ngIf="!isAdmin" class="nav-item" routerLinkActive="active"> <a class="nav-link btn btn-light btn-text"
+                                    routerLink="/login">Login as Admin</a> </li> 
+                         <button *ngIf="isAdmin" class="btn btn-light btn-text" (click)="adminLogout()"> Logout</button>                 
                     </ul>
                 </div>
-            </nav>
+                <div class="float-right mr-4 note">
+                    <b>You have {{isAdmin ? 'Admin' : 'User'}} rights</b>
+                </div>
+            </nav> 
         </div>
         <div class="w-100">
             <router-outlet></router-outlet>

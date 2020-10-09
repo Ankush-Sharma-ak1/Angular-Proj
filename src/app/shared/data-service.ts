@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from '@angular/common/http';
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 
 
@@ -10,7 +9,7 @@ export class DataService {
 
     private employeeList: AngularFireList<any>;
 
-    constructor(private httpClient: HttpClient, private firebase: AngularFireDatabase) {
+    constructor(private firebase: AngularFireDatabase) {
         this.employeeList = this.firebase.list('employeeList');
     }
 
@@ -31,6 +30,6 @@ export class DataService {
     deleteEmployee($key: string) {
         this.employeeList.remove($key);
     }
-    
+
 }
    

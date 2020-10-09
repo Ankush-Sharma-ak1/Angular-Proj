@@ -10,3 +10,8 @@ img {
 .cursorPointer {
     cursor: pointer;
 }
+
+.zoom:hover {
+    transform: scale(1.1); 
+    border: 1px solid #598790;
+  }

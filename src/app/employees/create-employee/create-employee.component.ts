@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Employee } from 'src/app/models/employee.model';
+import { AuthService } from 'src/app/shared/auth.service';
 import { EmployeeService } from '../employee.service';
 
 @Component({
@@ -24,9 +25,13 @@ export class CreateEmployeeComponent implements OnInit, OnDestroy {
   };
   employeeId: number;
   editMode = false;
+  isAdmin = false;
   subscription: Subscription;
 
-  constructor(private empService: EmployeeService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private empService: EmployeeService, 
+    private router: Router, 
+    private route: ActivatedRoute,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(
@@ -44,6 +49,7 @@ export class CreateEmployeeComponent implements OnInit, OnDestroy {
         }
       }
     );  
+   
   }
   onSave() {
     if(this.editMode)
@@ -55,6 +61,7 @@ export class CreateEmployeeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
      this.subscription.unsubscribe();
+  
     this.empService.startEdit.next(null);
      this.editMode = false;
   }

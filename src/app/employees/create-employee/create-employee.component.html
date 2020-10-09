@@ -1,7 +1,3 @@
-<div class="alert m-2 alert-info" role="alert">
-    Only Admin will have the right to create or update the information. We are currently working on this.
-  </div>
-
 <form #empForm (ngSubmit)="onSave()">
 <div class="card m-2">
     <div class="card-header">
@@ -41,7 +37,7 @@
         </div>
     </div>
     <div class="card-footer text-muted">
-     <button type="submit" class="btn btn-primary"> {{editMode ? 'Update': 'Add'}} </button>
+     <button type="submit" class="btn btn-primary"> {{editMode ? 'Update': 'Create'}} </button>
     </div>
   </div>
 </form>

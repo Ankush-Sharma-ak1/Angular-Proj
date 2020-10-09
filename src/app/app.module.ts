@@ -4,6 +4,9 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from "@angular/common/http";
 import { AngularFireModule } from "angularfire2";
 import { AngularFireDatabaseModule } from "angularfire2/database";
+import { AngularFireAuthModule } from "angularfire2/auth";
+import { AngularFireAuth } from "angularfire2/auth";
+//import { AngularFirestore } from "@angular/fire/firestore";
 
 import { AppComponent } from './app.component';
 import { EmployeeListComponent } from './employees/employee-list/employee-list.component';
@@ -15,13 +18,17 @@ import { EmployeeDetailComponent } from './employees/employee-display/employee-d
 import { environment } from 'src/environments/environment';
 import { HeaderComponent } from './header/header.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './shared/auth-guard.guard';
+import { ConnectionServiceModule } from 'ng-connection-service';
 
 
 const appRoutes: Routes = [
  {path: '', redirectTo: '/home', pathMatch: 'full'},
  {path: 'home', component: HomePageComponent},
  {path: 'list', component: EmployeeListComponent},
- {path: 'form', component: CreateEmployeeComponent},
+ {path: 'form', component: CreateEmployeeComponent, canActivate: [AuthGuard]},
+ {path: 'login', component: LoginComponent},
  {path: 'emp/:id', component: EmployeeDetailComponent},
  {path: 'edit/:id', component: CreateEmployeeComponent},
 ];
@@ -37,6 +44,7 @@ const appRoutes: Routes = [
     EmployeeDetailComponent,
     HeaderComponent,
     HomePageComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule, 
@@ -44,6 +52,8 @@ const appRoutes: Routes = [
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    ConnectionServiceModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [EmployeeService],

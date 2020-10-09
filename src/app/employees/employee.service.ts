@@ -10,13 +10,15 @@ export class EmployeeService {
 
         private listEmployees: Employee[];
 
-          constructor(private dataService: DataService) {}
+          constructor(private dataService: DataService) {
+           
+          }
 
           getEmployees(): Employee[] {
             this.listEmployees = [];
             let count = 0;
             this.dataService.getUsersFromFirebase().snapshotChanges().forEach(userSnapShot => {
-                if(count == 0) {
+                if(count === 0) {
                   userSnapShot.forEach(employeeSnapShot => {
                         let employee = employeeSnapShot.payload.toJSON();
                         employee['$key'] = employeeSnapShot.key;
@@ -24,7 +26,7 @@ export class EmployeeService {
                   })
                   count++;
                 }
-            }); 
+            })
             return this.listEmployees;
           }
 

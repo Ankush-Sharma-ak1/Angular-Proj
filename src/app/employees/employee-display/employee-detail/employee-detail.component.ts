@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Employee } from 'src/app/models/employee.model';
+import { AuthService } from 'src/app/shared/auth.service';
 import { EmployeeService } from '../../employee.service';
 
 @Component({
@@ -8,12 +10,17 @@ import { EmployeeService } from '../../employee.service';
   templateUrl: './employee-detail.component.html',
   styleUrls: ['./employee-detail.component.css']
 })
-export class EmployeeDetailComponent implements OnInit{
+export class EmployeeDetailComponent implements OnInit, OnDestroy {
 
   employeeId: number;
   employee : Employee;
+  isAdmin= false;
+  subscription: Subscription;
 
-  constructor(private route: ActivatedRoute, private empService: EmployeeService, private router: Router) { }
+  constructor(private route: ActivatedRoute, 
+    private empService: EmployeeService,
+     private router: Router,
+     private authService: AuthService) { }
 
   ngOnInit(): void {
 
@@ -24,7 +31,14 @@ export class EmployeeDetailComponent implements OnInit{
     )
 
     this.employee= this.empService.getEmployee(this.employeeId);
-    console.log(this.employee);
+   
+    this.subscription = this.authService.adminRight.subscribe(
+      (value) => {
+        if(value) {
+          this.isAdmin= true;
+        }
+      }
+    );  
 
   }
 
@@ -38,5 +52,11 @@ export class EmployeeDetailComponent implements OnInit{
     this.empService.deleteEmployee(this.employee);
     this.router.navigate(['list']);
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+   this.authService.adminRight.next(null);
+    this.isAdmin = false;
+ }
  
 }

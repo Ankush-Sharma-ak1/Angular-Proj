@@ -1,5 +1,5 @@
-<div class="alert m-2 alert-info" role="alert">
-    Please do not update or delete any of the content. We are currently working on this.
+<div *ngIf="!isAdmin" class="alert m-2 alert-info" role="alert">
+    If you want to update, delete or create the employee's data. <i><a routerLink="/login"> Kindly login in as Admin.</a></i>
   </div>
 
 <div class="card custom-margin-22 detail-card">
@@ -14,7 +14,7 @@
         <div class="col-xs-4">
             <img [src]="employee.photoPath" alt="">
         </div>
-        <div class="col-xs-8 ml-2">
+        <div class="col-xs-8 ml-5">
             <div class="row ">
                 <div class="col-xs-6">
                         {{employee.email}}
@@ -42,8 +42,8 @@
     </div>
     </div>
     <div class="card-footer">
-        <button class="btn btn-primary" type="button" (click)="onEdit()"> Edit </button>
-        <button class="btn btn-danger ml-2" type="button" (click)="onDelete()"> Delete </button>
+        <button *ngIf="isAdmin" class="btn btn-primary" type="button" (click)="onEdit()"> Edit </button>
+        <button *ngIf="isAdmin"  class="btn btn-danger ml-2" type="button" (click)="onDelete()"> Delete </button>
     </div>
 
 </div>
