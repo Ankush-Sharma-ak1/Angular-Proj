@@ -18,8 +18,10 @@ export class CreateEmployeeComponent implements OnInit, OnDestroy {
     email: null,
     module: null,
     teamName: null,
-    project: null,
-    projectLink: null,
+    typescriptProject: null,
+    typeScriptProjectLink: null,
+    angularProject: null,
+    angularProjectLink: null,
     photoPath: null,
 
   };

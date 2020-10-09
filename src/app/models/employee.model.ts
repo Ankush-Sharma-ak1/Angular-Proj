@@ -4,7 +4,9 @@ export class Employee {
     email: string;
     module: string;
     teamName: string;
-    project: string;
-    projectLink: string;
+    typescriptProject: string;
+    typeScriptProjectLink : string;
+    angularProject: string;
+    angularProjectLink: string;
     photoPath?: string;
 }
