@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if(this.authService.isLoggedIn !== true || this.authService.adminRight.value === null) {
+    if(this.authService.adminRight.value === null) {
       window.alert("Access Denied, You can't directly access this page! You need to login first.")
       this.router.navigate(['login'])
     }
