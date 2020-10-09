@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
      this.router.navigate(['/form']);
    })
    .catch(error => {
-         this.errorMessage = error.message;
+         this.errorMessage = "Sorry, we couldn't find an account with that username in the firebase." ;
      
    })
    form.reset();
