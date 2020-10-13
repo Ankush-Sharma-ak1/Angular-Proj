@@ -1,12 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../shared/auth.service';
+import { routeTransitionAnimations } from '../shared/route-tranistion.animation';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
+  animations: [routeTransitionAnimations]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
@@ -35,6 +37,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.isAdmin = false;
+ }
+
+ prepareRoute(outlet: RouterOutlet) {
+  return outlet && 
+    outlet.activatedRouteData && 
+    outlet.activatedRouteData['animationState'];
  }
 
 }
