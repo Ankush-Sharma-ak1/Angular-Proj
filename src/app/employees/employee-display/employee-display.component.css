@@ -14,3 +14,6 @@ img {
 .zoom:hover {
     transform: scale(1.1);
   }
+ .zoom {
+     transition: 0.3s;
+ } 
