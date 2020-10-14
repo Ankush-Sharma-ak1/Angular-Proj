@@ -6,6 +6,7 @@ import { AngularFireModule } from "angularfire2";
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { AngularFireAuthModule } from "angularfire2/auth";
 import { AngularFireAuth } from "angularfire2/auth";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 //import { AngularFirestore } from "@angular/fire/firestore";
 
 import { AppComponent } from './app.component';
@@ -25,8 +26,8 @@ import { ConnectionServiceModule } from 'ng-connection-service';
 
 const appRoutes: Routes = [
  {path: '', redirectTo: '/home', pathMatch: 'full'},
- {path: 'home', component: HomePageComponent},
- {path: 'list', component: EmployeeListComponent},
+ {path: 'home', component: HomePageComponent, data: {animationState: 'home'}},
+ {path: 'list', component: EmployeeListComponent, data: {animationState: 'list'}},
  {path: 'form', component: CreateEmployeeComponent, canActivate: [AuthGuard]},
  {path: 'login', component: LoginComponent},
  {path: 'emp/:id', component: EmployeeDetailComponent},
@@ -50,11 +51,12 @@ const appRoutes: Routes = [
     BrowserModule, 
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     ConnectionServiceModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
   ],
   providers: [EmployeeService],
   bootstrap: [AppComponent]
